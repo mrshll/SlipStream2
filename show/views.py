@@ -1,6 +1,7 @@
 import show.models
 import simplejson, json
 from common.util.netflix import flix
+from common.util.itunes_scrape import tunes
 from django.shortcuts import render_to_response, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
@@ -30,8 +31,11 @@ def index(request):
 @login_required
 def auto(request):
     try:
+        term = request.GET['term']
         n     = flix()
-        shows = n.autocomplete(request.GET['term'])
+        i     = tunes()
+        shows = n.autocomplete(term)
+        shows = shows + i.autocomplete(term)
         if shows:
             show_json = simplejson.dumps(shows)
             return HttpResponse(show_json)
