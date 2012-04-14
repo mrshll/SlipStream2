@@ -25,7 +25,7 @@ def index(request):
                                              'cost'       : total_cost  ,
                                              'uproviders' : userproviders,
                                              'providers'  : providers,
-                                             'shows'      : shows       }
+                                             'shows'      : shows
     }, context_instance=RequestContext(request))
 
 @login_required
