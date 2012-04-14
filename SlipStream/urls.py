@@ -1,4 +1,4 @@
-jrom django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, url
 from SlipStream import settings
 
 # Uncomment the next two lines to enable the admin:

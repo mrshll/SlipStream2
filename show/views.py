@@ -1,8 +1,9 @@
 import show.models
 import simplejson, json
-from netflix import flix
+from common.util.netflix import flix
 from django.shortcuts import render_to_response
-
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 def index(request):
     c = RequestContext(request)
@@ -18,6 +19,7 @@ def user_home(request):
                                             'userprofile': user_profile,
     }, context_instance=RequestContext(request))
 
+@login_required
 def autocomplete(request):
     n = flix()
     shows = n.doAutocomplete(request['term'])
