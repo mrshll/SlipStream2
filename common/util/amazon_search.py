@@ -5,7 +5,7 @@ class amazon_search:
     AMAZON_SECRET_KEY = 'IHHyPDVOTZaPWaejahDVdoZsf02L/EJiMuZ9rg9l'
     AMAZON_ASSOC_TAG  = '7903-2492-0405'
 
-    def new:
+    def new():
         return AmazonAPI(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY, AMAZON_ASSOC_TAG)
 
     def search(query):
