@@ -16,8 +16,14 @@ def login(request):
 @login_required
 def index(request):
     user_profile = request.user.get_profile()
-    return render_to_response('index.html', {'user': request.user,
+    providers    = user_profile.providers
+    shows        = user_profile.shows
+    total_cost   = sum(providers.cost)
+    return render_to_response('index.html', {'user'       : request.user,
                                              'userprofile': user_profile,
+                                             'cost'       : total_cost  ,
+                                             'providers'  : providers   ,
+                                             'shows'      : shows       }
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -52,6 +58,37 @@ def add_show(request):
                     new_show.save()
                 request.user.get_profile().shows.add(new_show)
                 return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
-        return HttpResponse("didn't add show")
+        return HttpResponse("FAIL")
     except Exception as e:
-        print("Error Adding: " + e)
+        print(e)
+
+@login_required
+def remove_show(request):
+    try:
+        if request.POST and request.POST.get('show'):
+            show_name = request.POST.get('show')
+            user_profile = user.get_profile()
+            s = Show.objects.get(name=show_name)
+            user_profile.shows.remove(s)
+            return HttpResponse("SUCCESS")
+        return HttpResponse("FAIL")
+    except Exception as e:
+        print(e)
+
+@login_required
+def add_provider(request):
+    try:
+        if request.POST and request.POST.get('provider'):
+            provider_name = request.POST.get('provider')
+            p = Provider.objects.get(name=provider_name)
+            p.save()
+            user_profile = request.user.get_profile()
+            user_profile.providers.add(p)
+            user_profile.save()
+            return HttpResponse('<li><a href="/provider/'+str(p.id)+'">' + p.name + '</a></li>')
+        return HttpResponse("FAIL")
+    except Exception as e:
+        print(e)
+
+
+
