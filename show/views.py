@@ -35,7 +35,7 @@ def add(request):
     if request.POST and request.POST.get('show_name'):
         show_name = request.POST.get('show_name')
         n = flix()
-        if n.getTitleInfo(show_name):
+        if n.autocomplete(show_name):
             new_show, created = Show.objects.get_or_create(name=show_name)
             if created:
                 new_show.status  = "Running"

@@ -18,16 +18,18 @@ class flix():
 
     # takes a string arg and returns a nested list with [title, short]
     def autocomplete(self, arg):
-        autocomplete = self.netflixClient.catalog.searchStringTitles(arg)
-        shows = []
-        for item in autocomplete:
-            shows.append(item['title']['short'])
-        return shows
+        try:
+            autocomplete = self.netflixClient.catalog.searchStringTitles(arg)
+            shows = []
+            for item in autocomplete:
+                shows.append(item['title']['short'])
+            return shows
+        except Exception as e:
+            print(e)
 
     def getTitleInfo(self, movie):
         # grab the format for this movie
-        disc = \
-            self.netflixClientDisc(movie['catalog_title'],self.netflixClient)
+        disc = NetflixDisc(['catalog_title'], self.netflixClient)
         formats = disc.getInfo('formats')
         synopsis = disc.getInfo('synopsis')
         cast = disc.getInfo('cast')
