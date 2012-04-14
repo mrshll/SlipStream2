@@ -6,6 +6,8 @@ class Provider(models.Model):
     cost      = models.FloatField()
     base_url  = models.URLField()
     # api_key = models.CharField(max_length=140)
+    def image(self):
+        return "img/"+name+".png"
 
 class Show (models.Model):
     name        = models.CharField(max_length=140)
