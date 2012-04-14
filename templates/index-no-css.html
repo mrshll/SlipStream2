@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<script src="{% static "js/main.js" %}"></script>
+<div>
+    <div class="ui-widget">
+        <form id="add_show" action="{% url show.views.add_show %}" method="POST"
+            enctype="multipart/form-data">{% csrf_token %}
+            <label for="show">Show: </label>
+            <input id="show" name="show" />
+            <input type="submit" value="Add Show"/>
+        </form>
+    </div>
+
+    <div id="show_list">
+        <h2>Your Shows</h2>
+        <ul>
+            {% for show in userprofile.shows.all %}
+            <li> <a href="/show/{{ show.id }}">{{ show.name }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <form id="add_provider" action="{% url show.views.add_provider %}"
+        method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <label for="provider">Add A Provider:</label>
+        <select name="provider">
+            {% for provider in providers %}
+            <option value="{{ provider.name }}">{{ provider.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add Service"/>
+    </form>
+
+
+    <div id="provider_list">
+        <h2>Your Providers</h2>
+
+        <ul>
+            {% for provider in userprofile.providers.all %}
+            <li> <a href="/show/{{ provider.id }}">{{ provider.name }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
