@@ -7,7 +7,7 @@ class Provider(models.Model):
     base_url  = models.URLField()
     # api_key = models.CharField(max_length=140)
     def image(self):
-        return "img/"+name+".png"
+        return "img/" + self.name + ".png"
 
 class Show (models.Model):
     name        = models.CharField(max_length=140)

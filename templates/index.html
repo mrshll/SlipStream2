@@ -6,7 +6,7 @@
 
 <div id="wrap">
 
-    <div id="header"><h1><img src="headerlogo.png" width="285" height="56" alt="Logo" /></h1>
+    <div id="header"><h1><img src="{% static "img/headerlogo.png" %}" width="285" height="56" alt="Logo" /></h1>
     </div>
 
 
@@ -27,92 +27,53 @@
         </div>
 
 
-        <ul id="show_list">
+        <div id="show_list">
             {% for show in userprofile.shows.all %}
-
-            <li>
-            <a href="/show/{{ show.id }}"></h2>{{ show.name }}</h2></a>
-            <a href="{% url show.views.remove_show %}">
-               <img src="remove.png" width="40" height="30" alt="Remove Show" />
-            </a>
-
-            </li>
-
+                <div class="show">
+                </h2><a href="/show/{{ show.id }}">{{ show.name }}</a></h2>
+                    <a href="{% url show.views.remove_show %}">
+                        <img src="{% static "img/remove.png" %}" width="20" height="15" alt="Remove Show" />
+                    </a>
+                </div>
             {% endfor %}
-        </ul>
-
-
-
-
-        <div id="show">
-            <h2>Test show1</h2>
-            <p>here's all the data about this show...</p>
-            <p>&nbsp; </p>
-            <img src="remove.png" width="40" height="30" alt="Remove Show" />
         </div>
-        <div id="show">
-            <h2>Test show2</h2>
-            <p>here's all the data about this show...</p>
-            <p>&nbsp; </p>
-            <img src="remove.png" width="40" height="30" alt="Remove Show" />
-        </div>
-        <div id="show">
-            <h2>Test show1</h2>
-            <p>here's all the data about this show...</p>
-            <p>&nbsp; </p>
-            <img src="remove.png" width="40" height="30" alt="Remove Show" />
-        </div>
-        <div id="show">
-            <h2>Test show2</h2>
-            <p>here's all the data about this show...</p>
-            <p>&nbsp; </p>
-            <img src="remove.png" width="40" height="30" alt="Remove Show" />
-        </div>
-
-
     </div>
 
-    <form id="add_provider" action="{% url show.views.add_provider %}"
-        method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <label for="provider">Add A Provider:</label>
-        <select name="provider">
-            {% for provider in providers %}
-            <option value="{{ provider.name }}">{{ provider.name }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Add Service"/>
-    </form>
-    <h2>Total Cost: {{ cost }}</h2>
+
+
 
     <div id="sidebar">
+
         <h1>Subscriptions</h1>
-        <form id="form1" name="form1" method="post" action="">
-            <label for="Test"></label>
-            <input type="text" name="Test" id="Test" />
+
+        <form id="add_provider" action="{% url show.views.add_provider %}"
+            method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <label for="provider">Add Provider:</label>
+            <select name="provider">
+                {% for provider in providers %}
+                <option value="{{ provider.name }}">{{ provider.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Add Service"/>
         </form>
-        <img src="addShow.png" width="100" height="40" alt="Add subscription" />
-        <p>&nbsp;</p>
-        <div id="subscription">
-            <img src="amazon.png" alt="Amazon" />
+
+
+        <div id="provider_list">
+            <h2>Your Providers</h2>
+
+            {% for provider in userprofile.providers.all %}
+            <div class="subscription">
+                <!-- <a href="{{ provider.id }}">{{ provider.name }}</a> -->
+                <img src="{% static provider.image %}"/>
+            </div>
+            {% endfor %}
         </div>
-        <p>&nbsp; </p>
-        <div id="subscription">
-            <img src="hulu.png" alt="Hulu" />
-        </div>
-        <p>&nbsp; </p>
-        <div id="subscription">
-            <img src="netflix.png" alt="Netflix" />
-        </div>
-        <p>&nbsp; </p>
-        <div id="cost">
-            <img src="cost.png" alt="Cost" />
-        </div>
+        <h2>Total Cost: {{ cost }}</h2>
+        <img src="{% static "img/tv.png" %}" alt="Logo" />
     </div>
 
     <div id="footer">
-        <img src="logo_tv.png" alt="Logo" />
 
-        <p>&nbsp;</p>
     </div>
 
 </div>
