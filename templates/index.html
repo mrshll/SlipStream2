@@ -2,8 +2,11 @@
 {% block content %}
 <div>
     <div class="ui-widget">
-        <label for="show">Show: </label>
-        <input id="show" />
+        <form action="show/add" method="POST" enctype="multipart/form-data">
+            <label for="show">Show: </label>
+            <input id="show" />
+            <input type="submit" value="Add Show"/>
+        </form>
     </div>
 </div>
 {% endblock %}
