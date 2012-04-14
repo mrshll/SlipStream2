@@ -4,6 +4,7 @@ from common.util.netflix import flix
 from django.shortcuts import render_to_response, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from show.models import Show
 
 def login(request):
     c = RequestContext(request)
@@ -33,14 +34,17 @@ def auto(request):
 
 @login_required
 def add(request):
-    if request.POST and request.POST.get('show_name'):
-        show_name = request.POST.get('show_name')
-        n = flix()
-        if n.autocomplete(show_name):
-            new_show, created = Show.objects.get_or_create(name=show_name)
-            if created:
-                new_show.status  = "Running"
-                new_show.save()
-            request.user.get_profile().shows.add(new_show)
-            return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
-    return HttpResponse("")
+    try:
+        if request.POST and request.POST.get('show'):
+            show_name = request.POST.get('show')
+            n = flix()
+            if n.autocomplete(show_name):
+                new_show, created = Show.objects.get_or_create(name=show_name)
+                if created:
+                    new_show.status  = "Running"
+                    new_show.save()
+                request.user.get_profile().shows.add(new_show)
+                return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
+        return HttpResponse("")
+    except Exception as e:
+        print(e)
