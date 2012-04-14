@@ -53,14 +53,23 @@ def add_show(request):
             show_name = request.POST.get('show')
             n = flix()
             i = tunes()
-            if n.autocomplete(show_name) or i.autocomplete(show_name):
-                show     = n.search(show_name)[0]
+            n_id   = None
+            n_img  = None
+            n_show = n.search(show_name)[0]
+            i_show = i.autocomplete(show_name)[0]
+            i_id   = 0
+            if n_show:
+                show     = n_show
                 show_img = show['box_art']['medium']
                 n_id     = show['id']
+            if i_show:
+                i_id     = 1
+            if n_show or i_show:
 
                 new_show, created = Show.objects.get_or_create(name=show_name,
                                                             netflix_id = n_id,
-                                                       netflix_img = show_img)
+                                                       netflix_img = show_img,
+                                                             itunes_id = i_id)
                 if created:
                     new_show.status  = "Running"
                     new_show.save()
@@ -97,6 +106,5 @@ def add_provider(request):
         return HttpResponse("FAIL")
     except Exception as e:
         print(e)
-
 
 

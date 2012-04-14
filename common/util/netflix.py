@@ -31,10 +31,10 @@ class flix():
         except Exception as e:
             print(e)
 
-    def getTitleInfo(self, movie):
+    def get_info(self, show_title):
         # grab the format for this movie
-        disc = NetflixDisc(movie['catalog_title'], self.netflixClient)
-        formats = disc.getInfo('formats')
+        disc = NetflixDisc(show_title, self.netflixClient)
+        formats  = disc.getInfo('formats')
         synopsis = disc.getInfo('synopsis')
         cast = disc.getInfo('cast')
         return {"disk":disc, "formats":formats, "synopsis":synopsis,

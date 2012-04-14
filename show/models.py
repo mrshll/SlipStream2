@@ -14,6 +14,7 @@ class Show (models.Model):
     status      = models.CharField(max_length=10, null=True) #running or done
     netflix_img = models.URLField(null=True)
     netflix_id  = models.URLField(max_length=120, null=True)
+    itunes_id   = models.IntegerField()
     def __unicode__(self):
         return self.name
     def netflix_provides(self):
