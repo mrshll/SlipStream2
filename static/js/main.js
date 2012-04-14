@@ -10,7 +10,7 @@ jQuery(function ($) {
         $.post( $(this).attr('action'), $(this).serialize(),
             function(show, status) {
                 if (status == "success") {
-                   $('#show_list').append(show).hide().fadeIn(400);
+                   $('#show_list').append($(show).hide().fadeIn(400));
                 }
         });
     });
@@ -20,7 +20,7 @@ jQuery(function ($) {
         $.post( $(this).attr('action'), $(this).serialize(),
             function(provider, status) {
                 if (status == "success") {
-                    $('#provider_list').append(provider).hide().fadeIn(400);
+                   $('#provider_list').append($(provider).hide().fadeIn(400));
                 }
             });
     });
