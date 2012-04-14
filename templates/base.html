@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Slipstream{% endblock %}</title>
+        <link rel="stylesheet" href="{% static "styles/base.css" %}" />
+        <script src="{% static "js/jquery-1.7.1.min.js" %}"></script>
+        <script src="{% static "js/main.js" %}"></script>
+    </head>
+
+    <body>
+        {% block header %}{% endblock %}
+
+        {% block content %}{% endblock %}
+
+        {% block footer %}{% endblock %}
+    </div>
+</body>
+</html>
+

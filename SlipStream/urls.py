@@ -5,8 +5,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'SlipStream.views.home', name='home'),
+    url(r'^$', 'show.views.home', name='home'),
     # url(r'^SlipStream/', include('SlipStream.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
