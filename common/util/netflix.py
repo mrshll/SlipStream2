@@ -12,12 +12,12 @@ class flix():
 
     # takes a string arg and returns full data for the search in a nested list
     # in [title][regular] format: print info['title']['regular']
-    def doSearch(self, arg):
+    def search(self, arg):
         data = self.netflixClient.catalog.searchTitles(arg,0,10)
         return data
 
     # takes a string arg and returns a nested list with [title, short]
-    def doAutocomplete(self, arg):
+    def autocomplete(self, arg):
         autocomplete = self.netflixClient.catalog.searchStringTitles(arg)
         shows = []
         for item in autocomplete:
