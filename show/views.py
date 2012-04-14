@@ -1,6 +1,8 @@
 import show.models
 import simplejson, json
 from common.util.netflix import flix
+from common.util.itunes_scrape import tunes
+from common.util.uniq import uniquify
 from django.shortcuts import render_to_response, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
@@ -30,8 +32,13 @@ def index(request):
 @login_required
 def auto(request):
     try:
+        term = request.GET['term']
         n     = flix()
-        shows = n.autocomplete(request.GET['term'])
+        i     = tunes()
+        u     = uniquify()
+        shows = n.autocomplete(term)
+        shows = shows + list(i.autocomplete(term))
+        shows = u.uni_ord(shows)
         if shows:
             show_json = simplejson.dumps(shows)
             return HttpResponse(show_json)
@@ -45,15 +52,24 @@ def add_show(request):
         if request.POST and request.POST.get('show'):
             show_name = request.POST.get('show')
             n = flix()
-            print("NAME: " + show_name)
-            if n.autocomplete(show_name):
-                show     = n.search(show_name)[0]
+            i = tunes()
+            n_id   = None
+            n_img  = None
+            n_show = n.search(show_name)[0]
+            i_show = i.autocomplete(show_name)[0]
+            i_id   = 0
+            if n_show:
+                show     = n_show
                 show_img = show['box_art']['medium']
                 n_id     = show['id']
+            if i_show:
+                i_id     = 1
+            if n_show or i_show:
 
                 new_show, created = Show.objects.get_or_create(name=show_name,
                                                             netflix_id = n_id,
-                                                       netflix_img = show_img)
+                                                       netflix_img = show_img,
+                                                             itunes_id = i_id)
                 if created:
                     new_show.status  = "Running"
                     new_show.save()
@@ -90,6 +106,5 @@ def add_provider(request):
         return HttpResponse("FAIL")
     except Exception as e:
         print(e)
-
 
 
