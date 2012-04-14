@@ -19,14 +19,14 @@
 		width:550px;
 		padding:5px;
 		background:#FFFFFF;
-	}	
-	#show{
+	}
+	.show{
 		float:left;
 		width:300px;
 		padding:5px;
 		background:#FFFFFF;
 	}
-	
+
 	#sidebar {
 		float:left;
 		width:250px;
@@ -73,5 +73,5 @@
 		margin:0;
 		font-size:15px;
     }
-	
-	
+
+

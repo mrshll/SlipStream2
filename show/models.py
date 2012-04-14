@@ -19,7 +19,6 @@ class Show (models.Model):
         if n.provide(self.name):
             return True
         return False
-    def html(self):
 
 
 class Episode(models.Model):
