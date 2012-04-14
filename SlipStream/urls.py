@@ -7,7 +7,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
         # show
-        url(r'^$', 'show.views.home', name='home'),
+        url(r'^$', 'show.views.index', name='index'),
+        url(r'^home/', 'show.views.home', name='home'),
+        url(r'^show/', include('show.urls')),
 
         # static/media routes
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
