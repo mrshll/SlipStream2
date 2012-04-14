@@ -16,7 +16,7 @@ def login(request):
 @login_required
 def index(request):
     user_profile  = request.user.get_profile()
-    total_cost    = sum(userproviders.cost)
+    total_cost    = sum(user_profile.providers.cost)
     providers     = Provider.objects.all()
     return render_to_response('index.html', {'user'       : request.user,
                                              'userprofile': user_profile,
