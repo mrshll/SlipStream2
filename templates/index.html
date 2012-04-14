@@ -1,5 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
+<script src="{% static "js/main.js" %}"></script>
 <div>
     <div class="ui-widget">
         <form action="show/add" method="POST" enctype="multipart/form-data">
