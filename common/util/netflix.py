@@ -10,17 +10,11 @@ class flix():
     netflixClient = NetflixClient(APP_NAME, API_KEY, API_SECRET, CALLBACK,
                                       True)
 
-    def doSearch(self, discs, arg):
-        ######################################
-        # Search for titles matching a string.
-        # To view all of the returned object,
-        # you can add a simplejson.dumps(info)
-        ######################################
-        print "*** RETRIEVING MOVIES MATCHING %s ***" % arg
+    # takes a string arg and returns full data for the search in a nested list
+    # in [title][regular] format: print info['title']['regular']
+    def doSearch(self, arg):
         data = self.netflixClient.catalog.searchTitles(arg,0,10)
-        for info in data:
-            print info['title']['regular']
-            discs.append(info)
+        return data
 
     # takes a string arg and returns a nested list with [title, short]
     def doAutocomplete(self, arg):
