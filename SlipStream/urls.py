@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+jrom django.conf.urls import patterns, include, url
 from SlipStream import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -7,7 +7,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
         # show
-        url(r'^$', 'show.views.home', name='home'),
+        url(r'^$', 'show.views.index', name='index'),
+        url(r'^home/', 'show.views.home', name='home'),
+        url(r'^show/', include('show.urls')),
 
         # static/media routes
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
