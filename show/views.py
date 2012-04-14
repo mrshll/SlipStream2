@@ -19,6 +19,7 @@ def user_home(request):
                                             'userprofile': user_profile,
     }, context_instance=RequestContext(request))
 
+#@login_required
 def auto(request):
     try:
         n     = flix()
@@ -30,6 +31,7 @@ def auto(request):
     except Exception as e:
         print(e)
 
+#@login_required
 def add(request):
     if request.POST and request.POST.get('show_name'):
         show_name = request.POST.get('show_name')
