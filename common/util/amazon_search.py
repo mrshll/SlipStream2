@@ -1,16 +1,16 @@
 from amazon.api import AmazonAPI
 
-AMAZON_ACCESS_KEY = 'AKIAIOWIDPGKSCSY72EQ'
-AMAZON_SECRET_KEY = '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'
-AMAZON_ASSOC_TAG  = '7903-2492-0405'
+class amazon_search:
+    AMAZON_ACCESS_KEY = 'AKIAIOWIDPGKSCSY72EQ'
+    AMAZON_SECRET_KEY = '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'
+    AMAZON_ASSOC_TAG  = '7903-2492-0405'
 
-a = AmazonAPI(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY, AMAZON_ASSOC_TAG)
+    def new:
+        return AmazonAPI(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY, AMAZON_ASSOC_TAG)
 
-results = a.search(Title=query, SearchIndex='Video')
-for r in results:
-    print (r.title)
+    def search(query):
+        results = a.search(Title=query, SearchIndex='Video')
+        return [r.title for r in results]
 
-
-#def search
-
-#def autocomplete
+    def autocomplete(query):
+        return search(query)
