@@ -17,7 +17,7 @@
         <h2>Your Shows</h2>
         <ul>
             {% for show in userprofile.shows.all %}
-            <li> <a href="/show/{{ show.id }}">{{ show.name }} </a> </li>
+            <li> <a href="/show/{{ show.id }}">{{ show.name }}</a> </li>
             {% endfor %}
         </ul>
     </div>
@@ -35,7 +35,15 @@
     </form>
 
 
-    <div id="provider_list"></div>
+    <div id="provider_list">
+        <h2>Your Providers</h2>
+
+        <ul>
+            {% for provider in userprofile.providers.all %}
+            <li> <a href="/show/{{ provider.id }}">{{ provider.name }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
 
 </div>
 {% endblock %}
