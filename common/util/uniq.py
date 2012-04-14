@@ -14,3 +14,9 @@ class uniquify():
            seen[marker] = 1
            result.append(item)
        return result
+    def interleave(self, xs, ys):
+        result = []
+        for i in range(0, min(len(xs), len(ys))):
+            result.append(xs[i])
+            result.append(ys[i])
+        return result

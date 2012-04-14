@@ -5,12 +5,13 @@ class amazon_search:
     AMAZON_SECRET_KEY = 'IHHyPDVOTZaPWaejahDVdoZsf02L/EJiMuZ9rg9l'
     AMAZON_ASSOC_TAG  = '7903-2492-0405'
 
-    def new():
-        return AmazonAPI(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY, AMAZON_ASSOC_TAG)
+    a = AmazonAPI(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY, AMAZON_ASSOC_TAG)
 
-    def search(query):
-        results = a.search(Title=query, SearchIndex='Video')
+    def search(self,query):
+        results = self.a.search(Title=query, SearchIndex='Video')
+        if not results:
+            return []
         return [r.title for r in results]
 
-    def autocomplete(query):
-        return search(query)
+    def autocomplete(self,query):
+        return self.search(query)[:3]

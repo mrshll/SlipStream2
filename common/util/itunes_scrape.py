@@ -3,7 +3,7 @@ import itunes
 class tunes():
     def autocomplete(self,arg):
         try:
-            shows = itunes.search(query=arg, media="tvShow")[:5]
+            shows = itunes.search(query=arg, media="tvShow")[:3]
             return [x.name for x in shows]
         except Exception as e:
             print (e)

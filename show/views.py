@@ -1,4 +1,5 @@
 import show.models
+import operator
 import simplejson, json
 from common.util.netflix import flix
 from common.util.itunes_scrape import tunes
@@ -31,6 +32,39 @@ def index(request):
     }, context_instance=RequestContext(request))
 
 @login_required
+def set_scover(request):
+    u = uniquify()
+    user_profile = request.user.get_profile()
+    shows = user_profile.shows.all()
+    providers={'netflix':[],'amazon':[],'itunes':[]}
+    for show in shows:
+        if show.netflix_id:
+            providers['netflix'].append(show)
+        if show.itunes_id:
+            providers['itunes'].append(show)
+        if show.amazon_id:
+            providers['amazon'].append(show)
+    max_single = max(providers.iteritems(), key=operator.itemgetter(1))[0]
+
+    dbest['number']=0
+    dbest['providers']=[]
+    for k1,v1 in providers.iteritems():
+        for k2,v2 in providers.iteritems():
+            if k1 != k2:
+               size = len(u.uni_ord(v1 + v2))
+               if size > dbest['number']:
+                   dbest['providers'] = [v1,v2]
+                   dbest['number'] = size
+    return (max_single, dbest)
+
+
+
+
+
+
+
+
+@login_required
 def auto(request):
     try:
         term = request.GET['term']
@@ -39,8 +73,8 @@ def auto(request):
         u     = uniquify()
         a     = amazon_search()
         shows = n.autocomplete(term)
-        shows = shows + list(i.autocomplete(term))
-        shows = shows + list(a.autocomplete(term))
+        shows = u.interleave(shows, list(i.autocomplete(term)))
+        shows = u.interleave(shows, list(a.autocomplete(term)))
         shows = u.uni_ord(shows)
         if shows:
             show_json = simplejson.dumps(shows)
