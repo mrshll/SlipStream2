@@ -39,12 +39,19 @@ def add(request):
             show_name = request.POST.get('show')
             n = flix()
             if n.autocomplete(show_name):
-                new_show, created = Show.objects.get_or_create(name=show_name)
+                show     = n.search(show_name)[0]
+                show_img = show['box_art']['medium']
+                print(show['box_art'])
+                n_id  = show['id']
+
+                new_show, created = Show.objects.get_or_create(name=show_name,
+                                                            netflix_id = n_id,
+                                                       netflix_img = show_img)
                 if created:
                     new_show.status  = "Running"
                     new_show.save()
                 request.user.get_profile().shows.add(new_show)
                 return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
-        return HttpResponse("", status=403)
+        return HttpResponse("didn't add show", status=403)
     except Exception as e:
         print("Error Adding: " + e)

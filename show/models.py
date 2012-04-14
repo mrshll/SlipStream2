@@ -7,8 +7,10 @@ class Provider(models.Model):
     # api_key = models.CharField(max_length=140)
 
 class Show (models.Model):
-    name   = models.CharField(max_length=140)
-    status = models.CharField(max_length=10, null=True) #running or done
+    name        = models.CharField(max_length=140)
+    status      = models.CharField(max_length=10, null=True) #running or done
+    netflix_img = models.URLField(null=True)
+    netflix_id  = models.URLField(max_length=120, null=True)
     def __unicode__(self):
         return self.name
 

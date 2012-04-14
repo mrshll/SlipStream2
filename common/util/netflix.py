@@ -36,4 +36,6 @@ class flix():
         return {"disk":disc, "formats":formats, "synopsis":synopsis,
                 "cast":cast}
 
-
+    def getEpisodeList(self, name):
+        data = self.netflixClient.catalog.searchStringTitles('Mad Men')
+        print(data)
