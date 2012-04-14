@@ -30,7 +30,6 @@ def auto(request):
     except Exception as e:
         print(e)
 
-@login_required
 def add(request):
     if request.POST and request.POST.get('show_name'):
         show_name = request.POST.get('show_name')
