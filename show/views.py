@@ -38,11 +38,11 @@ def add_show(request):
         if request.POST and request.POST.get('show'):
             show_name = request.POST.get('show')
             n = flix()
+            print("NAME: " + show_name)
             if n.autocomplete(show_name):
                 show     = n.search(show_name)[0]
                 show_img = show['box_art']['medium']
-                print(show['box_art'])
-                n_id  = show['id']
+                n_id     = show['id']
 
                 new_show, created = Show.objects.get_or_create(name=show_name,
                                                             netflix_id = n_id,

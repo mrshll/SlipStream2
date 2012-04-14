@@ -19,23 +19,30 @@ class flix():
     # takes a string arg and returns a nested list with [title, short]
     def autocomplete(self, arg):
         try:
-            autocomplete = self.netflixClient.catalog.searchStringTitles(arg)
+            autocomplete = \
+                self.netflixClient.catalog.searchStringTitles(str(arg))
             shows = []
-            for item in autocomplete:
-                shows.append(item['title']['short'])
-            return shows
+            if len(autocomplete) == 1:
+                return [autocomplete]
+            else:
+                for item in autocomplete:
+                    shows.append(item['title']['short'])
+                return shows
         except Exception as e:
             print(e)
 
     def getTitleInfo(self, movie):
         # grab the format for this movie
-        disc = NetflixDisc(['catalog_title'], self.netflixClient)
+        disc = NetflixDisc(movie['catalog_title'], self.netflixClient)
         formats = disc.getInfo('formats')
         synopsis = disc.getInfo('synopsis')
         cast = disc.getInfo('cast')
         return {"disk":disc, "formats":formats, "synopsis":synopsis,
                 "cast":cast}
 
-    def getEpisodeList(self, name):
-        data = self.netflixClient.catalog.searchStringTitles('Mad Men')
-        print(data)
+    def getEpisodes(self, show_id):
+        raw_episodes = self.netflixClient.catalog.getTitle(show_id)
+        episodes = []
+        for raw_episode in raw_episodes:
+            episodes.append({name:raw_episode['title']['episode_short']})
+        return episodes
