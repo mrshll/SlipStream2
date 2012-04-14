@@ -25,3 +25,14 @@ def autocomplete(request):
     shows = n.doAutocomplete(request['term'])
     json  = simplejson.dumps(shows)
     return HttpResponse(json)
+
+@login_required
+def add(request):
+    if request.POST and request.POST.get('show_name'):
+        new_show, created = Show.objects.get_or_create(name=request.POST.get('show_name'))
+        if created:
+            new_show.status  = "Running"
+            new_show.save()
+        request.user.get_profile().shows.add(new_show)
+        return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
+    return HttpResponse("")
