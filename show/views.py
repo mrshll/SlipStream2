@@ -2,6 +2,7 @@ import show.models
 import simplejson, json
 from common.util.netflix import flix
 from common.util.itunes_scrape import tunes
+from common.util.amazon_search import amazon_search
 from common.util.uniq import uniquify
 from django.shortcuts import render_to_response, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -36,8 +37,10 @@ def auto(request):
         n     = flix()
         i     = tunes()
         u     = uniquify()
+        a     = amazon_search()
         shows = n.autocomplete(term)
         shows = shows + list(i.autocomplete(term))
+        shows = shows + list(a.autocomplete(term))
         shows = u.uni_ord(shows)
         if shows:
             show_json = simplejson.dumps(shows)
