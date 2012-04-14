@@ -20,7 +20,7 @@ class flix():
     def autocomplete(self, arg):
         try:
             autocomplete = \
-                self.netflixClient.catalog.searchStringTitles(str(arg))
+                    self.netflixClient.catalog.searchStringTitles(str(arg))[:5]
             shows = []
             if len(autocomplete) == 1:
                 return [autocomplete]
