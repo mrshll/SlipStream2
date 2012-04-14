@@ -72,6 +72,17 @@
 
     </div>
 
+    <form id="add_provider" action="{% url show.views.add_provider %}"
+        method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <label for="provider">Add A Provider:</label>
+        <select name="provider">
+            {% for provider in providers %}
+            <option value="{{ provider.name }}">{{ provider.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add Service"/>
+    </form>
+    <h2>Total Cost: {{ cost }}</h2>
 
     <div id="sidebar">
         <h1>Subscriptions</h1>
