@@ -21,7 +21,7 @@ def index(request):
     return render_to_response('index.html', {'user'       : request.user,
                                              'userprofile': user_profile,
                                              'cost'       : total_cost  ,
-                                             'providers'  : providers}
+                                             'providers'  : providers
     }, context_instance=RequestContext(request))
 
 @login_required
