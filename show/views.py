@@ -4,7 +4,7 @@ from common.util.netflix import flix
 from django.shortcuts import render_to_response, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from show.models import Show
+from show.models import Show, Provider
 
 def login(request):
     c = RequestContext(request)
@@ -16,8 +16,9 @@ def login(request):
 @login_required
 def index(request):
     user_profile = request.user.get_profile()
-    return render_to_response('index.html', {'user': request.user,
-                                             'userprofile': user_profile,
+    return render_to_response('index.html',{'user': request.user,
+                                            'userprofile': user_profile,
+                                            'providers': Provider.objects.all()
     }, context_instance=RequestContext(request))
 
 @login_required
