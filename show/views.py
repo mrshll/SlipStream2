@@ -16,16 +16,12 @@ def login(request):
 @login_required
 def index(request):
     user_profile  = request.user.get_profile()
-    userproviders = user_profile.providers
-    shows         = user_profile.shows
     total_cost    = sum(userproviders.cost)
     providers     = Provider.objects.all()
     return render_to_response('index.html', {'user'       : request.user,
                                              'userprofile': user_profile,
                                              'cost'       : total_cost  ,
-                                             'uproviders' : userproviders,
-                                             'providers'  : providers,
-                                             'shows'      : shows       }
+                                             'providers'  : providers}
     }, context_instance=RequestContext(request))
 
 @login_required

@@ -13,7 +13,14 @@
         </form>
     </div>
 
-    <div id="show_list"></div>
+    <div id="show_list">
+        <h2>Your Shows</h2>
+        <ul>
+            {% for show in userprofile.shows.all %}
+            <li> <a href="/show/{{ show.id }}">{{ show.name }} </a> </li>
+            {% endfor %}
+        </ul>
+    </div>
 
     <form id="add_provider" action="{% url show.views.add_provider %}"
         method="POST" enctype="multipart/form-data">{% csrf_token %}
