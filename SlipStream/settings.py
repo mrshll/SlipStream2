@@ -117,6 +117,15 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+AUTH_PROFILE_MODULE="user_profile.UserProfile"
+ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_INVITATION_DAYS = 7
+INVITATIONS_PER_USER = 5
+INVITE_MODE = True
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,9 +136,13 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    #installed apps
+    'registration',
+
     # our apps
     'show',
-    'common'
+    'common',
+    'user_profile',
 )
 
 # A sample logging configuration. The only tangible logging

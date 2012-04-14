@@ -8,8 +8,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
         # show
         url(r'^$', 'show.views.index', name='index'),
-        url(r'^login/', 'show.views.home', name='login'),
+        url(r'^login/', 'show.views.login', name='login'),
         url(r'^show/', include('show.urls')),
+
+        url(r'^accounts/', include('registration.urls')),
 
         # static/media routes
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
