@@ -5,10 +5,13 @@ jQuery(function ($) {
     });
 
     //ajaxify the post submit
-    var AJAXify = true;
-    $('form').submit(function (e) {
-        if (!AJAXify) return;
+    $('form#new_show').submit(function (e) {
         e.preventDefault();
-        $.post( $(this).attr('action') , $(this).serialize() );
+        $.post( $(this).attr('action'), $(this).serialize(),
+            function(show, status) {
+                if (status == "success") {
+                   $('#show_list').append(show);
+                }
+        });
     });
 });

@@ -45,6 +45,6 @@ def add(request):
                     new_show.save()
                 request.user.get_profile().shows.add(new_show)
                 return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
-        return HttpResponse("")
+        return HttpResponse("", status=403)
     except Exception as e:
-        print(e)
+        print("Error Adding: " + e)
