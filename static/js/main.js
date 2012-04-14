@@ -10,7 +10,7 @@ jQuery(function ($) {
         $.post( $(this).attr('action'), $(this).serialize(),
             function(show, status) {
                 if (status == "success") {
-                   $('#show_list').append(show);
+                   $('#show_list').append(show).hide().fadeIn(400);
                 }
         });
     });

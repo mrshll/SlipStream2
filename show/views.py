@@ -33,7 +33,7 @@ def auto(request):
         print(e)
 
 @login_required
-def add(request):
+def add_show(request):
     try:
         if request.POST and request.POST.get('show'):
             show_name = request.POST.get('show')
@@ -52,6 +52,6 @@ def add(request):
                     new_show.save()
                 request.user.get_profile().shows.add(new_show)
                 return HttpResponse('<li><a href="/show/'+str(new_show.id)+'">' + new_show.name + '</a></li>')
-        return HttpResponse("didn't add show", status=403)
+        return HttpResponse("didn't add show")
     except Exception as e:
         print("Error Adding: " + e)

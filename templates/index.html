@@ -5,7 +5,7 @@
 <script src="{% static "js/main.js" %}"></script>
 <div>
     <div class="ui-widget">
-        <form id="new_show" action="{% url show.views.add %}" method="POST"
+        <form id="new_show" action="{% url show.views.add_show %}" method="POST"
             enctype="multipart/form-data">{% csrf_token %}
             <label for="show">Show: </label>
             <input id="show" name="show" />
