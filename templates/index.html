@@ -25,10 +25,9 @@
     <form id="add_provider" action="{% url show.views.add_provider %}"
         method="POST" enctype="multipart/form-data">{% csrf_token %}
         <label for="provider">Add A Provider:</label>
-        <select>
+        <select name="provider">
             {% for provider in providers %}
-            <option name="provider"
-                    value="{{ provider.name }}">{{ provider.name }}</option>
+            <option value="{{ provider.name }}">{{ provider.name }}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Add Service"/>
