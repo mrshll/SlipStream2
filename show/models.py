@@ -1,4 +1,5 @@
 from django.db import models
+from common.util.netflix import flix
 
 class Provider(models.Model):
     name      = models.CharField(max_length=40)
@@ -13,6 +14,11 @@ class Show (models.Model):
     netflix_id  = models.URLField(max_length=120, null=True)
     def __unicode__(self):
         return self.name
+    def netflix_provides(self):
+        n = flix()
+        if n.provide(self.name):
+            return True
+        return False
 
 class Episode(models.Model):
     season    = models.IntegerField()

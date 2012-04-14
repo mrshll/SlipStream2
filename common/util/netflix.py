@@ -46,3 +46,8 @@ class flix():
         for raw_episode in raw_episodes:
             episodes.append({name:raw_episode['title']['episode_short']})
         return episodes
+
+    def provide(self, show_name):
+        if len(self.search(show_name)) >= 1:
+            return True
+        return False

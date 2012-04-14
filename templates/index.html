@@ -17,7 +17,14 @@
         <h2>Your Shows</h2>
         <ul>
             {% for show in userprofile.shows.all %}
-            <li> <a href="/show/{{ show.id }}">{{ show.name }}</a> </li>
+            <li>
+                <a href="/show/{{ show.id }}">{{ show.name }}</a>
+                {% if show.netflix_provides %}
+                    <a href="http://movies.netflix.com/WiSearch?v1={{ show }}">
+                        <img src="{% static "img/netflix_icon.png" %}"/>
+                    </a>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
     </div>
@@ -32,6 +39,7 @@
         </select>
         <input type="submit" value="Add Service"/>
     </form>
+    <h2>Total Cost: {{ cost }}</h2>
 
 
     <div id="provider_list">

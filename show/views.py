@@ -15,11 +15,12 @@ def login(request):
 
 @login_required
 def index(request):
+    n             = flix()
     user_profile  = request.user.get_profile()
-    total_cost=0
+    providers     = Provider.objects.all()
+    total_cost    = 0
     for provider in user_profile.providers.all():
         total_cost = total_cost + provider.cost
-    providers     = Provider.objects.all()
     return render_to_response('index.html', {'user'       : request.user,
                                              'userprofile': user_profile,
                                              'cost'       : total_cost  ,
