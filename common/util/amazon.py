@@ -2,8 +2,8 @@
 Get all books published by "Galileo Press".
 """
 from amazonproduct.api import API
-AWS_KEY = 'AKIAJZDWZOHWGEYFQBDA'
-SECRET_KEY = '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'
+AWS_KEY = ''
+SECRET_KEY = ''
 
 if __name__ == '__main__':
 
